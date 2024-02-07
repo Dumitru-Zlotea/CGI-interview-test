@@ -18,8 +18,7 @@ class CounterController:
         self.app.run(debug=True)
 
     def get_counters(self):
-        counters = self.counter_service.get_counters()
-        return jsonify(counters)
+        return self.counter_service.get_counters()
 
     def create_counter(self):
         data = request.get_json()
@@ -48,7 +47,6 @@ class CounterController:
 
     def get_counter(self, counter_name: str):
         try:
-            counter = self.counter_service.get_counter(counter_name)
-            return jsonify(counter)
+            return self.counter_service.get_counter(counter_name) 
         except ValueError as e:
             return jsonify({"error": str(e)}), 404

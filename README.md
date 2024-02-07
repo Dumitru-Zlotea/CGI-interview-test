@@ -6,7 +6,7 @@ Set up a virtual environment:
 Activate the virtual environment:
 `.\venv\Scripts\activate`
 
-Add dependencies:
+You have to once again add the dependencies:
 `pip install -r requirements.txt`
 
 Run the server with `python app.py`
