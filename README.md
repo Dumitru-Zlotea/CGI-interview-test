@@ -1,15 +1,16 @@
-# CGI-interview-test
+# CGI interview test
 
 Set up a virtual environment:
 `python -m venv venv`
+
+Activate the virtual environment:
 `.\venv\Scripts\activate`
 
 Add dependencies:
-`python -m pip install Flask==2.2.2`
-`python -m pip install "connexion[swagger-ui]==2.14.1"`
+`pip install -r requirements.txt`
 
 Run the server with `python app.py`
 
-Postman url: `http://127.0.0.1:5000/counters/`
+url for Postman testing: `http://127.0.0.1:5000/counters/`
 
-Run tests: `python -m unittest tests\test_file.py`
+Run tests with: `python -m unittest tests\test_file.py`
