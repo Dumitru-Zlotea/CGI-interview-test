@@ -1,0 +1,6 @@
+#ignoring the virtual environment
+/venv
+
+#ignoring the pycache
+/tests/__pycache__
+/__pycache__
