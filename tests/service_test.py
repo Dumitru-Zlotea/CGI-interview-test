@@ -8,11 +8,11 @@ class TestCounterService(unittest.TestCase):
         self.list_test_counter = ["test", 5]
 
     def test_get_counters_empty(self):
-        self.assertEqual(self.counter_service.get_counters(), {})
+        self.assertEqual(self.counter_service.get_counters(), [])
 
     def test_get_counters(self):
         self.counter_service.counters = self.test_counter
-        self.assertEqual(self.counter_service.get_counters(), self.test_counter)
+        self.assertEqual(self.counter_service.get_counters(), [self.test_counter])
 
     def test_create_counter(self):
         self.counter_service.create_counter(self.list_test_counter[0], self.list_test_counter[1])

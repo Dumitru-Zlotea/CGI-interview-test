@@ -1,14 +1,26 @@
-from flask import jsonify, request
+from flask import jsonify, request, Flask
 from service import CounterService
 
 class CounterController:
     def __init__(self):
         self.counter_service = CounterService()
+        self.app = Flask(__name__)
+        self.addRoutes()
+    
+    def addRoutes(self):
+        self.app.route('/counters/', methods=['GET'])(self.get_counters)
+        self.app.route('/counters', methods=['POST'])(self.create_counter)
+        self.app.route('/counters/<counter_name>', methods=['PUT'])(self.increment_counter)
+        self.app.route('/counters/<counter_name>', methods=['DELETE'])(self.decrement_counter)
+        self.app.route('/counters/<counter_name>', methods=['GET'])(self.get_counter)
+    
+    def run(self):
+        self.app.run(debug=True)
 
     def get_counters(self):
         counters = self.counter_service.get_counters()
         return jsonify(counters)
-    
+
     def create_counter(self):
         data = request.get_json()
         counter_name, initial_value = data.popitem()
@@ -17,7 +29,7 @@ class CounterController:
             return jsonify({"message": f"Counter {counter_name} created with initial value {initial_value}"})
         except ValueError as e:
             return jsonify({"error": str(e)}), 409
-        
+    
     def increment_counter(self, counter_name: str):
         try:
             self.counter_service.increment_counter(counter_name)
@@ -27,7 +39,9 @@ class CounterController:
         
     def decrement_counter(self, counter_name: str):
         try:
-            self.counter_service.decrement_counter(counter_name)
+            result = self.counter_service.decrement_counter(counter_name)
+            if result:
+                return jsonify({"message": f"Counter {counter_name} decremented and deleted"})
             return jsonify({"message": f"Counter {counter_name} decremented"})
         except ValueError as e:
             return jsonify({"error": str(e)}), 404
@@ -38,4 +52,3 @@ class CounterController:
             return jsonify(counter)
         except ValueError as e:
             return jsonify({"error": str(e)}), 404
-    

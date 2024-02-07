@@ -5,7 +5,7 @@ Set up a virtual environment:
 `.\venv\Scripts\activate`
 
 Add dependencies:
-`python -m pip install Flask-2.2.2`
+`python -m pip install Flask==2.2.2`
 `python -m pip install "connexion[swagger-ui]==2.14.1"`
 
 Run the server with `python app.py`
